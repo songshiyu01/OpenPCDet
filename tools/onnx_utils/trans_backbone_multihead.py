@@ -51,7 +51,7 @@ if __name__ == "__main__":
     import numpy as np 
     from pcdet.config import cfg, cfg_from_yaml_file
     cfg_file = '/home/ubuntu/OpenPCDet/tools/cfgs/nuscenes_models/cbgs_pp_multihead.yaml'
-    filename_mh = "/home/ubuntu/OpenPCDet/output/nuscenes_models/cbgs_pp_multihead/default/checkpoint_epoch_20.pth"
+    filename_mh = "/home/ubuntu/OpenPCDet/output/nuscenes_models/cbgs_pp_multihead/default/ckpt/checkpoint_epoch_20.pth"
     cfg_from_yaml_file(cfg_file, cfg)
     model , dummy_input = build_backbone_multihead(filename_mh , cfg )
 
