@@ -30,8 +30,8 @@ def build_backbone_multihead(ckpt , cfg ):
     pc_range = np.array(cfg.DATA_CONFIG.POINT_CLOUD_RANGE)
     voxel_size = np.array(cfg.DATA_CONFIG.DATA_PROCESSOR[2]['VOXEL_SIZE'])
     grid_size = (pc_range[3:] - pc_range[:3]) /voxel_size
-    gridx = grid_size[0].astype(np.int)
-    gridy = grid_size[1].astype(np.int)
+    gridx = grid_size[0].astype(np.int_)
+    gridy = grid_size[1].astype(np.int_)
     model = backbone(cfg , gridx ,gridy)
     model.to('cuda').eval()
 
