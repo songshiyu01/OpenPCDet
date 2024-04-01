@@ -81,7 +81,7 @@ class BaseBEVBackbone(nn.Module):
                         )
                     )
                 else:
-                    stride = np.round(1 / stride).astype(np.int)
+                    stride = np.round(1 / stride).astype(np.int_)
                     self.deblocks.append(
                         nn.Sequential(
                             nn.Conv2d(
