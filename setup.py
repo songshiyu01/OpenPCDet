@@ -42,7 +42,7 @@ if __name__ == '__main__':
             'tensorboardX',
             'easydict',
             'pyyaml',
-            'scikit-image',
+            #'scikit-image',
             'tqdm',
             'SharedArray',
             # 'spconv',  # spconv has different names depending on the cuda version
