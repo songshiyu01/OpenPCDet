@@ -11,7 +11,7 @@ ENV TRT_VERSION=8.4.1.5
 RUN apt-get update -y \
     && apt-get install -y build-essential cmake libboost-all-dev libprotobuf-dev protobuf-compiler\
     && apt-get install -y apt-utils vim git curl ca-certificates bzip2 tree htop wget xfce4-terminal\
-    && apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev bmon iotop 
+    && apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev bmon iotop python3-opencv
 
 # Install Python pip
 RUN ln -sv /usr/bin/python3.8 /usr/bin/python
@@ -21,6 +21,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip
 #RUN python -m pip --no-cache-dir install numpy==1.19.3 llvmlite numba
 RUN python -m pip --no-cache-dir install torch==1.13.1 torchvision==0.14.1
 RUN python -m pip --no-cache-dir install open3d==0.16.0 spconv-cu116 pyquaternion==0.9.9 opencv-python==4.9.0.80 av2==0.2.1 scikit-image
+RUN python -m pip --no-cache-dir install tensorboardX SharedArray easydict
 
 # Install TensorRT
 WORKDIR /root
@@ -60,6 +61,7 @@ WORKDIR /root
 ENV TORCH_CUDA_ARCH_LIST="3.5;5.0;6.0;6.1;7.0;7.5;8.0;8.6+PTX"
 RUN git clone https://github.com/songshiyu01/OpenPCDet.git
 RUN cd OpenPCDet && git checkout docker-dev && python setup.py develop
+ENV PYTHONPATH="/root/OpenPCDet:${PYTHONPATH}"
 
 # Set up PointPillars Inference
 WORKDIR /root
