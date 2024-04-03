@@ -21,7 +21,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip
 #RUN python -m pip --no-cache-dir install numpy==1.19.3 llvmlite numba
 RUN python -m pip --no-cache-dir install torch==1.13.1 torchvision==0.14.1
 RUN python -m pip --no-cache-dir install open3d==0.16.0 spconv-cu116 pyquaternion==0.9.9 opencv-python==4.9.0.80 av2==0.2.1 scikit-image
-RUN python -m pip --no-cache-dir install tensorboardX SharedArray easydict
+RUN python -m pip --no-cache-dir install tensorboardX SharedArray easydict nuscenes-devkit==1.1.11
 
 # Install TensorRT
 WORKDIR /root
@@ -70,12 +70,10 @@ RUN wget https://github.com/jbeder/yaml-cpp/archive/refs/tags/yaml-cpp-0.6.0.tar
     cd yaml-cpp-yaml-cpp-0.6.0 && mkdir build && cd build && cmake .. && \
     make -j && make install && cd ../../ && rm -rf /root/yaml-cpp-yaml-cpp-0.6.0
 RUN git clone https://github.com/songshiyu01/PointPillars_MultiHead_40FPS.git && cd PointPillars_MultiHead_40FPS && \
+    git checkout docker-dev
     git submodule update --init --recursive && \
     mkdir build && cd build && \
     cmake .. && make -j
 
 # Set up the PyTorch model file and demo point cloud file
 WORKDIR /root
-RUN mkdir -p OpenPCDet/output/nuscenes_models/cbgs_pp_multihead/default/ckpt && \
-    wget --no-check-certificate 'https://drive.google.com/file/d/1dLfheLM6M_Tu6c_Rp16SSR0GAwmSZ1zZ/view?usp=drive_link' -O OpenPCDet/output/nuscenes_models/cbgs_pp_multihead/default/ckpt/checkpoint_epoch_20.pth
-RUN wget --no-check-certificate 'https://drive.google.com/file/d/1fjZDRAl_2w5fpBN08CAxRMpjIurRtzB3/view?usp=drive_link' -O PointPillars_MultiHead_40FPS/nuscenes_10sweeps_points.txt 
