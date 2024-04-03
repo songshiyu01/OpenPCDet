@@ -50,12 +50,12 @@ def build_backbone_multihead(ckpt , cfg ):
 if __name__ == "__main__":
     import numpy as np 
     from pcdet.config import cfg, cfg_from_yaml_file
-    cfg_file = '/home/ubuntu/OpenPCDet/tools/cfgs/nuscenes_models/cbgs_pp_multihead.yaml'
-    filename_mh = "/home/ubuntu/OpenPCDet/output/nuscenes_models/cbgs_pp_multihead/default/ckpt/checkpoint_epoch_20.pth"
+    cfg_file = '/root/OpenPCDet/tools/cfgs/nuscenes_models/cbgs_pp_multihead.yaml'
+    filename_mh = "/root/OpenPCDet/output/nuscenes_models/cbgs_pp_multihead/default/ckpt/checkpoint_epoch_20.pth"
     cfg_from_yaml_file(cfg_file, cfg)
     model , dummy_input = build_backbone_multihead(filename_mh , cfg )
 
-    export_onnx_file = "/home/ubuntu/OpenPCDet/output/cbgs_pp_multihead_backbone.onnx"
+    export_onnx_file = "/root/OpenPCDet/output/cbgs_pp_multihead_backbone.onnx"
     model.eval().cuda()
     torch.onnx.export(model,
                       dummy_input,
