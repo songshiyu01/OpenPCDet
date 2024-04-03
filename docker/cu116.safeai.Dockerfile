@@ -70,7 +70,7 @@ RUN wget https://github.com/jbeder/yaml-cpp/archive/refs/tags/yaml-cpp-0.6.0.tar
     cd yaml-cpp-yaml-cpp-0.6.0 && mkdir build && cd build && cmake .. && \
     make -j && make install && cd ../../ && rm -rf /root/yaml-cpp-yaml-cpp-0.6.0
 RUN git clone https://github.com/songshiyu01/PointPillars_MultiHead_40FPS.git && cd PointPillars_MultiHead_40FPS && \
-    git checkout docker-dev
+    git checkout docker-dev && \
     git submodule update --init --recursive && \
     mkdir build && cd build && \
     cmake .. && make -j
