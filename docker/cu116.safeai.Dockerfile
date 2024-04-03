@@ -76,4 +76,6 @@ RUN git clone https://github.com/songshiyu01/PointPillars_MultiHead_40FPS.git &&
     cmake .. && make -j
 
 # Set up the PyTorch model file and demo point cloud file
+ADD ./docker/model_train.sh /root/
+ADD ./docker/model_deploy.sh /root/
 WORKDIR /root
