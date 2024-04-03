@@ -1,6 +1,7 @@
 ARG CUDA_VERSION=11.6.2
 ARG OS_VERSION=20.04
 
+# Note: This image already includes python3.8
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-devel-ubuntu${OS_VERSION}
 ENV DEBIAN_FRONTEND=noninteractive
 # Note: You need to reset TRT_VERSION explictly here.
@@ -10,17 +11,16 @@ ENV TRT_VERSION=8.4.1.5
 RUN apt-get update -y \
     && apt-get install -y build-essential cmake libboost-all-dev libprotobuf-dev protobuf-compiler\
     && apt-get install -y apt-utils vim git curl ca-certificates bzip2 tree htop wget xfce4-terminal\
-    && apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev bmon iotop python3.9 python3.9-dev python3.9-distutils
+    && apt-get install -y libglib2.0-0 libsm6 libxext6 libxrender-dev bmon iotop 
 
 # Install Python pip
-RUN ln -sv /usr/bin/python3.9 /usr/bin/python
-RUN ln -sv /usr/bin/python3.9 /usr/bin/python3
+RUN ln -sv /usr/bin/python3.8 /usr/bin/python
 RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py && rm get-pip.py
 
 # Install PyTorch and Others
 #RUN python -m pip --no-cache-dir install numpy==1.19.3 llvmlite numba
 RUN python -m pip --no-cache-dir install torch==1.13.1 torchvision==0.14.1
-RUN python -m pip --no-cache-dir install open3d==0.16.0 spconv-cu116 pyquaternion==0.9.9 opencv-python==4.9.0.80 av2==0.2.1 scikit-image==0.22.0
+RUN python -m pip --no-cache-dir install open3d==0.16.0 spconv-cu116 pyquaternion==0.9.9 opencv-python==4.9.0.80 av2==0.2.1 scikit-image
 
 # Install TensorRT
 WORKDIR /root
